@@ -7,7 +7,7 @@ app.use(express.json())
 
 mongoose.set('strictQuery', true);
 
-mongoose.connect("mongodb+srv://Amrata:Y99l58O8175g88R8@cluster0.xictrjh.mongodb.net/chatApp-DB" , {useNewUrlParser:true})
+mongoose.connect("mongodb+srv://Amrata:Y99l58O8175g88R8@cluster0.xictrjh.mongodb.net/Zygal-DB" , {useNewUrlParser:true})
 .then(() => console.log("server is connected"))
 .catch((err) => console.log(err.message))
 

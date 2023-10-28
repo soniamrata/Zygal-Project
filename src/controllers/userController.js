@@ -34,7 +34,7 @@ const signIn = async(req,res)=>{
    if(!user) return res.status(400).send({status:false,message:"The email or phoneNumber you entered isn't connected to an account"})
    const token = jwt.sign({ userid: user._id.toString()},'secret-key')
    await userModel.findByIdAndUpdate(user._id,{token:token})
-   res.cookie("authorization", token)
+   res.setHeader("authorization", token)
    res.status(200).send({ status: true, data: token })
     }catch(err){
         return res.status(500).send({status:false,message:err.message})
