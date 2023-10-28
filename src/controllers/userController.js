@@ -65,4 +65,4 @@ const logout = async (req,res)=>{
 
 
 
-module.exports={signUp, signIn, searchdata}
+module.exports={signUp, signIn, searchdata,logout}

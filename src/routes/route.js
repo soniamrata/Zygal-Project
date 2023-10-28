@@ -13,8 +13,8 @@ router.post('/signInUser',signIn)
 //********8route for searching ********************* */
 router.get('/search',authentication,searchdata)
 
-// //**********rout for logout user****************** */
-// router.put('/logoutUSer',authentication,logout)
+//**********rout for logout user****************** */
+router.put('/logoutUSer',authentication,logout)
 
 
 
