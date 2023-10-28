@@ -25,35 +25,31 @@ const signIn = async(req,res)=>{
     try{
    const data = req.body
    const{email,password}= data
- if(!email) {return res.status(400).send({ status: false, message: "email or password is missing" })} 
+   if(!email) {return res.status(400).send({ status: false, message: "email or password is missing" })} 
    if(!isvalidEmail(email)) return res.status(400).send({status:false, message:"wrong email"})
    if (!password) {  return res.status(400).send({ status: false, message: "password is missing" }) }
    if(!isvalidpassword(password)) return res.status.send({status:false,message:"password incorrect"})
-   
    const user = await userModel.findOne({email:email},{password:password})
-   if(!user) return res.status(400).send({status:false,message:"The email or phoneNumber you entered isn't connected to an account"})
-   const token = jwt.sign({ userid: user._id.toString()},'secret-key')
-   await userModel.findByIdAndUpdate(user._id,{token:token})
-   res.setHeader("authorization", token)
+   if(!user) return res.status(400).send({status:false,message:"The email you entered isn't connected to an account"})
+   const token = jwt.sign({ userId: user._id},'secret-key',{expiresIn:"7d"})
+   const update = await userModel.findByIdAndUpdate(user._id,{token:token})
+   res.setcookeis("authorization", token)
    res.status(200).send({ status: true, data: token })
     }catch(err){
         return res.status(500).send({status:false,message:err.message})
- 
     }
 }
 
 const searchdata = async (req,res)=>{
     try{
-        let filters=req.query
-        let data = await BlogsModel.find(filters)
-        if(data.length==0) return res.status(404).send({status: false , msg: "Blog is not available."})
+        const data = req.userDetails
     
-        res.status(200).send({status: true , Data: data})
+        const showprofile = await userModel.findOne({userId : data._id},{__v:0},{password:0})
+        return res.status(200).send({status:true,Data:showprofile})
+        }catch(err){
+            return res.status(500).send({status:false,message:err.message})
+        }
     
-    }catch(error){
-      return res.status(500).send({staus:false,message:error.message})
-    }
-
 }
 const logout = async (req,res)=>{
     try{

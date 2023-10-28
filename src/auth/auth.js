@@ -1,6 +1,8 @@
 
 const userModel = require("../models/userModel.js");
 const jwt = require("jsonwebtoken")
+const userController = require('../controllers/userController.js')
+const {isvalidEmail,isvalidpassword} = require('../validators/validator.js')
 
 
 let authentication = async function (req, res, next) {
@@ -14,7 +16,7 @@ let authentication = async function (req, res, next) {
             message: "Token is missing! please enter token.",
           })}
      
-      let decodedToken=jwt.verify(token,"secret")
+      let decodedToken=jwt.verify(token,"secret-key")
      if(!decodedToken) return res.status(401).send({status:false,message:"token is invalid"})
   
      const userDetails = await userModel.findById({userId:decodedToken.userId})
@@ -29,3 +31,4 @@ let authentication = async function (req, res, next) {
       }
   }
   module.exports = {authentication}
+
