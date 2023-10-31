@@ -33,7 +33,7 @@ const signIn = async(req,res)=>{
    if(!user) return res.status(400).send({status:false,message:"The email you entered isn't connected to an account"})
    const token = jwt.sign({ userId: user._id},'secret-key',{expiresIn:"7d"})
    const update = await userModel.findByIdAndUpdate(user._id,{token:token})
-   res.setcookeis("authorization", token)
+   res.setHeader("authorization", token)
    res.status(200).send({ status: true, data: token })
     }catch(err){
         return res.status(500).send({status:false,message:err.message})
@@ -42,7 +42,7 @@ const signIn = async(req,res)=>{
 
 const searchdata = async (req,res)=>{
     try{
-        const data = req.userDetails
+        const data = req.token
     
         const showprofile = await userModel.findOne({userId : data._id},{__v:0},{password:0})
         return res.status(200).send({status:true,Data:showprofile})
