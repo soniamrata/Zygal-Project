@@ -2,6 +2,7 @@ const userModel = require("../models/userModel.js")
 const {isvalidEmail,isvalidpassword} = require('../validators/validator.js')
 const jwt = require("jsonwebtoken")
 
+//================== function for register user=============//
 const signUp = async (req,res)=>{
     try{
     let data = req.body
@@ -21,6 +22,7 @@ return res.status(201).send({ status: true, message:"successfull",data: register
     }
 }
 
+//======================function for user login======================//
 const signIn = async(req,res)=>{
     try{
    const data = req.body
@@ -40,6 +42,7 @@ const signIn = async(req,res)=>{
     }
 }
 
+//====================function for search user data or profile ============//
 const searchdata = async (req,res)=>{
     try{
         const data = req.token
@@ -51,6 +54,8 @@ const searchdata = async (req,res)=>{
         }
     
 }
+
+//==============function for user user for logout=================//
 const logout = async (req,res)=>{
     try{
       const token = req.token;
