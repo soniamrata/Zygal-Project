@@ -39,5 +39,6 @@ let authentication = async function (req, res, next) {
       return res.status(500).send({ status: false, error: error.message });
   }
 };
+
   module.exports = {authentication}
 
